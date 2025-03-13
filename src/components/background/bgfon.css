@@ -1,0 +1,10 @@
+.backgroundFon{
+    background: linear-gradient(rgb(252, 252, 252), #77dd77);
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    left:0;
+    top:0;
+    position:fixed;
+    z-index: -1;
+}

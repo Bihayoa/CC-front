@@ -1,0 +1,140 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    margin-top: 25px;
+    background-color: hsl(0, 0%, 100%);
+    padding-bottom: 30px;
+    width: 600px;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.text{
+    color: #76db5d;
+    font-size: 44px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+
+.underline{
+    width:61px;
+    height:6px;
+    background-color: #76db5d;
+    border-radius: 9px;
+}
+
+.inputs{
+    margin-top:55px;
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+}
+
+.input{
+    display:flex;
+    align-items:center;
+    margin:auto;
+    width:440px;
+    height: 60px;
+    background: rgb(203, 203, 203);
+    border-radius: 6px;
+}
+
+.input img{
+    margin: 0px 30px;
+}
+
+.input input{
+    height:50px;
+    width: 400;
+    background: transparent;
+    border:none;
+    outline:none;
+    color:#797979;
+    font-size: 19px;
+}
+
+.forgot-password{
+    padding-left: 62px ;
+    margin-top: 27px;
+    color:#797979;
+    font-size: 18px;
+}
+
+.forgot-password span{
+    color: #4c00b4;
+    cursor: pointer;
+}
+.register{
+    padding-left: 62px ;
+    margin-top: 27px;
+    color:#797979;
+    font-size: 18px;
+}
+
+.register span{
+    color: #4c00b4;
+    cursor: pointer;
+}
+
+.login{
+    padding-left: 62px ;
+    margin-top: 27px;
+    color:#797979;
+    font-size: 18px;
+}
+
+.login span{
+    color: #4c00b4;
+    cursor: pointer;
+}
+/* .submit-container{
+    display: flex;
+    gap:30px;
+    margin:30px auto;
+}
+
+.submitBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:220px;
+    height:59px;
+    color: #ffffff;
+    background: #228f07;
+    border-radius:40px;
+    font-size:19px;
+    font-weight: 600;
+    cursor:pointer;      
+} .gray{
+    background: #b3b3b3;
+    color:#3f3f3f;
+} */
+
+.sendBtn{
+    display: flex;
+    gap:10px;
+    margin:0px auto;
+}
+
+.submBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:120px;
+    height:29px;
+    color: #ffffff;
+    background: #76db5d;
+    border-radius:40px;
+    font-size:19px;
+    font-weight: 600;
+    cursor:pointer;   
+}

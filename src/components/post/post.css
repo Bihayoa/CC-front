@@ -1,0 +1,266 @@
+.post{
+    width:100%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 3px 15px -1px rgba(157,158,139,0.73); 
+    box-shadow: 0px 3px 15px -1px rgba(157,158,139,0.73);
+    margin: 30px 0;
+}
+
+.postWrapper{
+    padding: 10px;
+}
+
+.postTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postTopLeft{
+    display: flex;
+    align-items: center;
+}
+
+.postProfileImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.postUsername{
+    font-style: 15px;
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+
+.postDate{
+    font-size: 12px;
+}
+
+.like{
+    cursor: pointer;
+}
+
+.postCenter{
+    margin: 20px 0;
+}
+
+.postImg{
+    margin-top:20px;
+    width: 100%;
+    max-height:900px;
+    object-fit: contain;
+    position: relative;
+}
+
+.postBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postBottomLeft{
+    display: flex;
+    align-items: center;
+}
+
+.likeButton{
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    cursor: pointer;
+
+}
+
+.postLikeCounter{
+    font-size:15px;
+    margin-right: 20px;
+}
+
+.options{
+    cursor: pointer;
+}
+
+.postCommentText{
+    cursor: pointer;
+    border-bottom: 1px dashed gray;
+    font-size:15px;
+}
+
+.postTitle{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+
+.chatImg{
+    cursor: pointer;
+}
+
+.postBottomRight{
+    display: flex;
+    align-items: center;
+}   
+
+.postID{
+    width: 50%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 3px 15px -1px rgba(157,158,139,0.73); 
+    box-shadow: 0px 3px 15px -1px rgba(157,158,139,0.73);
+    margin: 30px 20px;
+}
+
+.photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 50vh;
+}
+
+.prev2, .next2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    color: greenyellow;
+    font-weight: bold;
+    font-size: 36px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 1;
+}
+
+.next2 {
+    right: 0;
+    align-self: flex-end;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev2:hover, .next2:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .prev2 {
+    left: 0;
+    align-self: flex-start;
+  }
+
+.slide{
+    width: 100%;
+    height: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+  .prev3, .next3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    color: rgb(245, 47, 255);
+    font-weight: bold;
+    font-size: 36px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 1;
+}
+
+.next3 {
+    right: 0;
+    align-self: flex-end;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev3:hover, .next3:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .prev3 {
+    left: 0;
+    align-self: flex-start;
+  }
+
+  .prev4, .next4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+    font-size: 36px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 1;
+}
+
+.next4 {
+    right: 0;
+    align-self: flex-end;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev4:hover, .next4:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .prev4 {
+    left: 0;
+    align-self: flex-start;
+  }
+
+  .prev5, .next5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    color: rgb(25, 0, 255);
+    font-weight: bold;
+    font-size: 36px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 1;
+}
+
+.next5 {
+    right: 0;
+    align-self: flex-end;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev5:hover, .next5:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .prev5 {
+    left: 0;
+    align-self: flex-start;
+  }
