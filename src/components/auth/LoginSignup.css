@@ -129,12 +129,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width:120px;
-    height:29px;
+    width:150px;
+    height:30px;
     color: #ffffff;
     background: #76db5d;
     border-radius:40px;
     font-size:19px;
     font-weight: 600;
     cursor:pointer;   
+    margin-top: 10px;
 }

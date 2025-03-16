@@ -5,6 +5,7 @@ import PostID from "./components/post/postID";
 
 import { Route, Routes } from 'react-router-dom';
 import "./globals.css"
+import FeedPosts from "./components/post/feedPosts";
 
 function App() {
       return(

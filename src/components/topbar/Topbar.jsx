@@ -7,16 +7,25 @@ import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import adminAvatar from "../assets/adminAvatar.jpg";
 import noImg from "../assets/noProfileImg.png"
+import { useNavigate } from 'react-router-dom';
+
 
 export const Topbar = () => {
     // const haveAUserAvatar = localStorage.getItem('avatar_url');
     // const avatar = haveAUserAvatar === null ?  'c:/Users/Forward/Desktop/final/src/components/assets/noProfileImg.png' : haveAUserAvatar
     const avatar_url = localStorage.getItem('avatar_url');
+
+    const navigate = useNavigate();
+
+    const navigateToHomepage = () => {
+        navigate('/')
+    }
+
     return(
         <div className='topbarContainer'>
                 <div className="topbarLeft"></div>
                     <img src={logo} alt="" />
-                    <span className='logo'>CatsCool</span>
+                    <span className='logo' onClick={navigateToHomepage}>CatsCool</span>
                 <div className="topbarCenter">
                     <div className="searchbar">
                         <SearchIcon  className='searchIcon'/>
@@ -25,7 +34,7 @@ export const Topbar = () => {
                 </div>
                 <div className="topbarRight">
                     <div className="topbarLinks">
-                        <span className="topbarLink">Главная страница</span>
+                        <span className="topbarLink" onClick={navigateToHomepage}>Главная страница</span>
                         <span className="topbarLink">Мои посты</span>
                     </div>
                     <div className="topbarIcons">

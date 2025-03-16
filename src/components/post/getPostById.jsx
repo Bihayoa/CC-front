@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {isValidElement, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import { postsURL, usersURL } from '../../config/dbCon.config';
 import noProfileImg from '../assets/noProfileImg.png';
@@ -6,12 +6,10 @@ import "./post.css"
 
 import { backendUploadDirectoryURL } from '../../config/filesPath.config';
 
-import Arrows from "../assets/right-arrow.png"
-import Dot from "../assets/record.png"
-
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { postByID, putLike } from '../../api/postAPI';
 
 const PostByID = () => {
 
@@ -20,17 +18,30 @@ const PostByID = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [curPhoto, setCurPhoto] = useState(0);
+    const [like, setLike] = useState(0);
+    const [liked, setLiked] = useState(false);
 
+    const token = localStorage.getItem("token");
+    const URL = `${postsURL}/putlike/${id}`
+    const likePost = async () => {
+            if (token !== null && token !== 'undefined'){
+          try {
+            const like = putLike(URL, token);
+            setLike(like);
+        }catch(err){
+          
+        }
+      } else{
+        //Логика что если пользователь не авторизован
+      }
+    }
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`${postsURL}/${id}`);
-                if (!response.ok){
-                  throw new Error('НУ ГДЕ_ТО ОШИБКА ПРИ ПОЛУЧЕНИИ ПОСТА ПО АЙДИ, ВОЗМОЖНО ТАКОГО ПОСТА ВООБЩЕ НЕ СУЩЕСТВУЕТ ИЛИ ОН БЫЛ УДАЛЕН');
-                }
-
-                const data = await response.json();
+                const data = await postByID(id);
                 setPost(data);
+                setLike(Number(data.user_liked));
+                console.log(data)
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -42,21 +53,16 @@ const PostByID = () => {
     }, [id]);
 
     if (loading) return <p>Загрузка...</p>;
-    if (error) return <p>Ошшибка {error}</p>;
-
-    // let photosLength = post.images_u;
-
-    // const PostImages = `${backendUploadDirectoryURL}/${post.image_urls[0]}`
-    // console.log(post.image_urls.length);
+    if (error) return <p>Прости, но это явно Ошибка {error}</p>;
 
     const postImages = post.image_urls.map((photo) => `${backendUploadDirectoryURL}/${photo}`);
     const photosAmount = postImages.length;
 
     const changePhoto = (direction) => {
       if (direction === 'next') {
-          setCurPhoto((prev) => (prev + 1) % photosAmount);
+          setCurPhoto(curPhoto < photosAmount - 1 ? curPhoto + 1 : 0);
       } else {
-          setCurPhoto((prev) => (prev - 1 + photosAmount) % photosAmount);
+          setCurPhoto(curPhoto > 0 ? curPhoto - 1 : photosAmount - 1);
       }
     };
     
@@ -94,14 +100,14 @@ const PostByID = () => {
                 <span className="postText">{post.text}</span>     
             <div className="postBottom">
               <div className="postBottomLeft">
-                <ThumbUpOffAltIcon className='likeButton' />
-                <span className="postLikeCounter">{post.likes} людям понравилось</span>
+                <ThumbUpOffAltIcon className='likeButton' onClick={likePost} />
+                <span className="postLikeCounter" >{like} людям понравилось</span>
               {/* <div className="postBottomRight">
                 <ChatIcon className='chatImg'/>
                 <span className="postCommentText">6 комментариев</span>
               </div> */}
               <RemoveRedEyeIcon />
-              <p>{Math.round(post.views/2)}</p>
+              <p>{post.views}</p>
               </div>
             </div>
         </div>

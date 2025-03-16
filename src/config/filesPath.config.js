@@ -1,3 +1,3 @@
-const backendUploadDirectoryURL = 'http://192.168.197.173:8080';
+const backendUploadDirectoryURL = 'http://192.168.5.173:8080';
 
 export {backendUploadDirectoryURL};

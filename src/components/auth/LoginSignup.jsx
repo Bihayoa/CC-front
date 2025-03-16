@@ -9,6 +9,7 @@ import login_icon from '../assets/flower_3_line.png'
 import {registerURL, loginURL} from "../../config/dbCon.config.js"
 import Fon from '../background/bgFon.jsx'
 import {useNavigate} from "react-router-dom"
+import Topbar from '../topbar/Topbar.jsx'
 
 let URL;
 
@@ -67,10 +68,10 @@ export const LoginSignup = () => {
       const userData = await response.json();
       // console.log(userData)
       //Сохранение токена и аватарЮрл
-      localStorage.setItem('token', userData.token)
-      localStorage.setItem('avatar_url', userData.avatar_url)
+      // localStorage.setItem('token', userData.token)
+      // localStorage.setItem('avatar_url', userData.avatar_url)
+      setAction("Login");
       //Направление на главную страницу
-      navigate('/')
       return userData;
     }catch(err){
       console.log("error: ", err)
@@ -100,7 +101,11 @@ export const LoginSignup = () => {
       localStorage.setItem('token', userData.token);
       localStorage.setItem('avatar_url', userData.avatar_url)
       //Направление
-      navigate('/')
+      if (localStorage.getItem('token') && localStorage !== undefined){
+        navigate('/')
+      }else{
+        //Функция вывода ошибки
+      }
       // console.log(userData)
       return userData;
     }catch(err){
@@ -110,9 +115,12 @@ export const LoginSignup = () => {
 }
 
   return (
+      <>
+      <Topbar />
       <div className='container'>
       <title>CC | Sign</title>
       <Fon />
+     
       <div className='header'>
         <div className='text'>{action}</div>
         <div className='underline'></div>
@@ -138,14 +146,14 @@ export const LoginSignup = () => {
         </div>
         
       </div>
-      {action==="Sign Up"? <div /> :<div className="forgot-password">Lost Password <span>Click Here!</span></div> }
-      {action === "Sign Up" ? <div />: <div className="register" onClick={()=>{setAction("Sign Up")}}><span>Not registred yet?</span></div> }
-      {action === "Login" ? <div />: <div className="login" onClick={()=>{setAction("Login")}}><span>Already have account?</span></div> }
+      {action==="Sign Up"? <div /> :<div className="forgot-password">Забыл пароль? <span>Тыкай сюда!</span></div> }
+      {action === "Sign Up" ? <div />: <div className="register" onClick={()=>{setAction("Sign Up")}}><span>Ещё не зарегистрирован?</span></div> }
+      {action === "Login" ? <div />: <div className="login" onClick={()=>{setAction("Login")}}><span>Уже есть аккаунт?</span></div> }
       <div className='sendBtn'>
-        <div className='submBtn' onClick={auth} >Submit</div>
+      {action === "Sign Up" ? <div className='submBtn' onClick={auth} > Создать </div> : <div className='submBtn' onClick={auth} >Войти</div> }
       </div>
     </div>
-
+    </>
     
   )
 }

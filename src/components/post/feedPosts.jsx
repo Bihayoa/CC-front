@@ -11,14 +11,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 
 const PORTION_OF_ITEMS = 4;
-
+let curPhoto = 0;
 function FeedPosts() {
-
-  const [curPhoto2, setCurPhoto2] = useState(0);
-  const [curPhoto3, setCurPhoto3] = useState(0);
-  const [curPhoto4, setCurPhoto4] = useState(0);
-  const [curPhoto5, setCurPhoto5] = useState(0);
-
 
   const [offset, setOffset] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -28,40 +22,43 @@ function FeedPosts() {
   const [isScrollEnabled, setIsScrollEnabled] = useState(true); // check for scroll event
 
   const fetchPosts = async () => {
+    // Предотвратить повторные запросы, если уже идет загрузка
+    if (isLoading) return;
+  
     setIsLoading(true);
     try {
       const res = await fetch(
         `${ip}/api/posts/?limit=${PORTION_OF_ITEMS}&offset=${offset}`
       );
-
+  
       if (!res.ok) {
         throw new Error(`Ошибка HTTP: ${res.status}`);
       }
-
+  
       const data = await res.json();
-
+  
       if (Array.isArray(data)) {
         setPosts((prev) => [...prev, ...data]);
-
+  
         if (data.length < PORTION_OF_ITEMS) {
           setFlag(false);
-          setIsScrollEnabled(false); // Disable scrolling
+          setIsScrollEnabled(false); // Отключить скроллинг
         }
       } else {
         console.warn("Ответ API не является массивом", data);
       }
-
-      setIsLoading(false);
     } catch (error) {
       console.error("Ошибка при загрузке постов:", error);
       setIsError(error);
-      setIsLoading(false);
+    } finally {
+      setIsLoading(false); // Завершить состояние загрузки в любом случае
     }
   };
-
+  
   useEffect(() => {
     fetchPosts();
   }, [offset]);
+  
 
   const handleScroll = () => {
     if (!isScrollEnabled) {
@@ -96,32 +93,11 @@ function FeedPosts() {
 
   const PostImages = posts.map((post) => post.image_urls ? post.image_urls.map((photo) => `${backendUploadDirectoryURL}/${photo}`) : () => {});
   const photosAmount = PostImages.map((photos) => photos.length);
-  const changePhoto2 = (direction, index) => {
+  const changePhoto = (direction) => {
     if (direction === 'next') {
-        setCurPhoto2((prev) => (prev + 1) % photosAmount[index]);
+        curPhoto = ((prev) => (prev + 1) % photosAmount);
     } else {
-        setCurPhoto2((prev) => (prev - 1 + photosAmount[index]) % photosAmount[index]);
-    }
-  };
-  const changePhoto3 = (direction, index) => {
-    if (direction === 'next') {
-        setCurPhoto3((prev) => (prev + 1) % photosAmount[index]);
-    } else {
-        setCurPhoto3((prev) => (prev - 1 + photosAmount[index]) % photosAmount[index]);
-    }
-  };
-  const changePhoto4 = (direction, index) => {
-    if (direction === 'next') {
-        setCurPhoto4((prev) => (prev + 1) % photosAmount[index]);
-    } else {
-        setCurPhoto4((prev) => (prev - 1 + photosAmount[index]) % photosAmount[index]);
-    }
-  };
-  const changePhoto5 = (direction, index) => {
-    if (direction === 'next') {
-        setCurPhoto5((prev) => (prev + 1) % photosAmount[index]);
-    } else {
-        setCurPhoto5((prev) => (prev - 1 + photosAmount[index]) % photosAmount[index]);
+        curPhoto = ((prev) => (prev - 1 + photosAmount) % photosAmount);
     }
   };
 
@@ -147,52 +123,15 @@ function FeedPosts() {
             <div className="postCenter">
                 <span className="postTitle">{post.title}</span>
                 <div className='photos'>
-                  
-                {photosAmount[index] === 2 && (
-                            <>
-                                <a className='prev2' onClick={() => changePhoto2('prev', index)}>&larr;</a>
-                                <a className='next2' onClick={() => changePhoto2('next', index)}>&rarr;</a>
-                            </>
-                        )}
-
-                {photosAmount[index] === 3 && (
-                                            <>
-                                                <a className='prev3' onClick={() => changePhoto3('prev', index)}>&larr;</a>
-                                                <a className='next3' onClick={() => changePhoto3('next', index)}>&rarr;</a>
-                                            </>
-                                        )}
-
-                {photosAmount[index] === 4 && (
-                                                            <>
-                                                                <a className='prev4' onClick={() => changePhoto4('prev', index)}>&larr;</a>
-                                                                <a className='next4' onClick={() => changePhoto4('next', index)}>&rarr;</a>
-                                                            </>
-                                                        )}
-
-                {photosAmount[index] === 5 && (
-                                                            <>
-                                                                <a className='prev5' onClick={() => changePhoto5('prev', index)}>&larr;</a>
-                                                                <a className='next5' onClick={() => changePhoto5('next', index)}>&rarr;</a>
-                                                            </>
-                                                        )}
-
-
-
+                {photosAmount[index] > 1 && (
+                      <>
+                          <a className='prev' onClick={() => changePhoto('prev', index)}>&larr;</a>
+                          <a className='next' onClick={() => changePhoto('next', index)}>&rarr;</a>
+                      </>
+                  )}
                   <div className='slide'>
-                    {photosAmount[index] === 2 &&(
-                      <img src={PostImages[index][curPhoto2]} className='postImg'></img>
-                    )}
-                    {photosAmount[index] === 1 && (
-                        <img src={PostImages[index]} className='postImg'></img>
-                    )}
-                    {photosAmount[index] === 3 &&(
-                      <img src={PostImages[index][curPhoto3]} className='postImg'></img>
-                    )}
-                     {photosAmount[index] === 4 &&(
-                      <img src={PostImages[index][curPhoto4]} className='postImg'></img>
-                    )}
-                     {photosAmount[index] == 5 &&(
-                      <img src={PostImages[index][curPhoto5]} className='postImg'></img>
+                    {photosAmount[index] > 1 &&(
+                      <img src={PostImages[index][curPhoto]} className='postImg'></img>
                     )}
                   </div>
                 </div>
