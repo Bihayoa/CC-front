@@ -16,9 +16,9 @@ export const Topbar = () => {
     const avatar_url = localStorage.getItem('avatar_url');
 
     const navigate = useNavigate();
-
     const navigateToHomepage = () => {
         navigate('/')
+        window.location.reload();
     }
 
     return(
@@ -51,7 +51,7 @@ export const Topbar = () => {
                             <span className="topbarIconBadge">1</span>
                         </div> */}
                     </div>
-                    <img src={avatar_url ? avatar_url : noImg} alt="profile Img" className="topbarImg" />
+                    <img src={avatar_url !== 'undefined' && avatar_url !== null ? adminAvatar : noImg} alt="profile Img" className="topbarImg" />
                 </div>
         </div>
     );

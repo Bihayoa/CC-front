@@ -19,17 +19,17 @@ const PostByID = () => {
     const [error, setError] = useState(null);
     const [curPhoto, setCurPhoto] = useState(0);
     const [like, setLike] = useState(0);
-    const [liked, setLiked] = useState(false);
 
     const token = localStorage.getItem("token");
-    const URL = `${postsURL}/putlike/${id}`
+
+
     const likePost = async () => {
             if (token !== null && token !== 'undefined'){
           try {
-            const like = putLike(URL, token);
+            const like = putLike(id, token);
             setLike(like);
         }catch(err){
-          
+          console.error(err);
         }
       } else{
         //Логика что если пользователь не авторизован

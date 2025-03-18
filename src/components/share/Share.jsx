@@ -9,6 +9,7 @@ import uploadIcon from '../assets/Coding-Apps-Website-Web-Form-Image-Attachment-
 
 //IMPORT URL
 import { postsURL } from '../../config/dbCon.config';
+import { createPost } from '../../api/postAPI';
 
 export default function Share() {
     const post = new FormData();
@@ -24,19 +25,11 @@ export default function Share() {
         const token = localStorage.getItem('token')
 
         try{
-            const response = await fetch(postsURL, {
-                method: 'POST',
-                body: post,
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-
-            const postData = await response.json();
-
+            const postData = await createPost(token, post);
             setInputText('');
             setInputTitle('');
             setFiles('');
+            window.location.reload();
             return postData
         }catch(err){
             console.error("SORRY, BUT ITS A ERROR: ", err)
@@ -77,7 +70,7 @@ export default function Share() {
                     <div className='shareOption'>
                         <label htmlFor='fileUpload' className='fUpload'>
                             <img src={uploadIcon} alt='upload' className='shareIcon'></img>
-                            <input id='fileUpload' type='file' onChange={handleFileChange} multiple accept='.png, .jpg, .jpeg, .webp' className='uploadInput'/>
+                            <input id='fileUpload' type='file' onChange={handleFileChange} multiple accept='.png, .jpg, .jpeg, .webp, .gif' className='uploadInput'/>
                         </label>
                     </div>
 

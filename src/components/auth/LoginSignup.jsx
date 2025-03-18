@@ -10,6 +10,7 @@ import {registerURL, loginURL} from "../../config/dbCon.config.js"
 import Fon from '../background/bgFon.jsx'
 import {useNavigate} from "react-router-dom"
 import Topbar from '../topbar/Topbar.jsx'
+import { login, register } from '../../api/userAPI.js'
 
 let URL;
 
@@ -57,21 +58,19 @@ export const LoginSignup = () => {
       URL = registerURL;
       //Отправление
       try {
-        const response = await fetch(URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-        });
-
-      const userData = await response.json();
+        const userData = await register(URL, user);
       // console.log(userData)
       //Сохранение токена и аватарЮрл
       // localStorage.setItem('token', userData.token)
       // localStorage.setItem('avatar_url', userData.avatar_url)
       setAction("Login");
       //Направление на главную страницу
+      setInputUsername('');
+      setInputEmail('');
+      setInputPassword('');
+      setInputName('');
+
+
       return userData;
     }catch(err){
       console.log("error: ", err)
@@ -87,27 +86,20 @@ export const LoginSignup = () => {
       URL = loginURL;
       //Отправление
       try {
-        const response = await fetch(URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
+        const userData = login(URL, user);
+        //Сохранение токена с аватар юрл
+        userData.then((resolve) => {
+          localStorage.setItem('token', resolve.token);
+          localStorage.setItem('avatar_url', resolve.avatar_url)
+        })
+        //Направление
+        if (localStorage.getItem('token') !== null && localStorage.getItem('token') !== 'undefined'){
+          navigate('/')
+        }else{
+          window.alert("Неверный пароль или логин")
         }
-      );
-      
-      const userData = await response.json();
-      //Сохранение токена с аватар юрл
-      localStorage.setItem('token', userData.token);
-      localStorage.setItem('avatar_url', userData.avatar_url)
-      //Направление
-      if (localStorage.getItem('token') && localStorage !== undefined){
-        navigate('/')
-      }else{
-        //Функция вывода ошибки
-      }
-      // console.log(userData)
-      return userData;
+        // console.log(userData)
+        return userData;
     }catch(err){
       console.log("error: ", err)
     }

@@ -1,4 +1,4 @@
-import { postsURL } from "../config/dbCon.config";
+import { postsURL, putLikeToPost } from "../config/dbCon.config";
 
 
 const postByID = async (id) => {
@@ -11,15 +11,42 @@ const postByID = async (id) => {
     return data;
 }
 
-const putLike = async(URL, token) => {
+const putLike = async(id, token) => {
+    const URL = `${putLikeToPost}/${id}`;
     const response = await fetch(URL, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`,
-    },
-});
-    const like = await response.json(); 
-    return like;
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+    const likeResponse = await response.json(); 
+    return likeResponse.likeCount; // Поменяйте здесь на соответствующий объект
+};
+
+const feedPosts = async(ip, PORTION_OF_ITEMS, offset) => {
+    const res = await fetch(
+        `${ip}/api/posts/?limit=${PORTION_OF_ITEMS}&offset=${offset}`
+      );
+  
+      if (!res.ok) {
+        throw new Error(`Ошибка HTTP: ${res.status}`);
+      }
+  
+      const data = await res.json();
+      return data;
 }
-export {postByID, putLike};
+
+const createPost = async(token, post) =>{
+    const response = await fetch(postsURL, {
+        method: 'POST',
+        body: post,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const postData = await response.json();
+    return postData;
+}
+export {postByID, putLike, feedPosts, createPost};
