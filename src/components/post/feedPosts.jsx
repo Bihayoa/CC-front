@@ -9,7 +9,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { feedPosts, putLike } from "../../api/postAPI";
-
+import ImageZoom from "../imageZoom/imageZoom";
 
 const PORTION_OF_ITEMS = 4;
 // const sortMethod = "created";
@@ -25,6 +25,10 @@ function FeedPosts() {
   const [like, setLike] = useState({})
   const [curPage, setCurPage] = useState({});
   const [postImages, setPostImages] = useState({})
+  const [isImgZoom, setIsImgZoom] = useState(false);
+  const [zoomPhoto, setZoomPhoto] = useState('');
+  const [zoomedPhotosCollection, setZoomedPhotosCollection] = useState('');
+
   // const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
@@ -108,17 +112,42 @@ function FeedPosts() {
   // const PostImages = posts.map((post) => post.image_urls ? post.image_urls.map((photo) => `${backendUploadDirectoryURL}/${photo}`) : () => {});
   // const photosAmount = PostImages.map((photos) => photos.length);
   const changePhoto = (direction, postId) => {
+    console.log(postImages[postId].length)
     if (direction === 'next') {
       setCurPage((prev) => ({...prev, [postId] : curPage[postId] < postImages[postId].length - 1 ? curPage[postId] + 1 : 0}))
     } else {
       setCurPage((prev) => ({...prev, [postId] : curPage[postId] > 0 ? curPage[postId] - 1 : postImages[postId].length - 1}))
     }
+    if (isImgZoom){setZoomPhoto(postImages[zoomedPhotosCollection][curPage[postId]])}
   };
+
+  //Увеличение картинок
+  const zoomImage = (post) =>{
+      setZoomPhoto(postImages[post.post_id][curPage[post.post_id]])
+      setZoomedPhotosCollection(post.post_id);
+    if(isImgZoom === false){
+      setIsImgZoom(true);
+    } else{
+      setIsImgZoom(false);
+      console.log("this is work")
+      // setZoomPhoto(null);
+    }
+  }
+
 
   return (
     <div className="feed">
       <Share />
-      {posts.map((post, index) => (
+      {isImgZoom && (
+        <>
+          <ImageZoom image_src={zoomPhoto}  />
+          <img className="bg" onClick={()=>{setIsImgZoom(false)}}/>
+
+        </>
+          )}
+
+      {posts.map((post) => (
+        
         <div key={post.post_id}>
           <div className='postWrapper'>
             <div className="postTop">
@@ -133,22 +162,28 @@ function FeedPosts() {
             </div>
             <div className="postCenter">
               <span className="postTitle">{post.title}</span>
-
+                
               {postImages[post.post_id].length >= 1 && ( 
                 <>
                 <div className='photos'>
-              {postImages[post.post_id].length > 1 && (
+              {(postImages[post.post_id].length > 1 && isImgZoom === false) && (
                       <>
                           <a className='prev' onClick={() => changePhoto('prev', post.post_id)}>&larr;</a>
                           <a className='next' onClick={() => changePhoto('next', post.post_id)}>&rarr;</a>
                       </>
                   )}
+              {(postImages[post.post_id].length > 1 && isImgZoom === true) && (
+                      <>
+                          <a className='prevZoomed' onClick={() => changePhoto('prev', post.post_id)}>&larr;</a>
+                          <a className='nextZoomed' onClick={() => changePhoto('next', post.post_id)}>&rarr;</a>
+                      </>
+                  )}
                   <div className='slide'>
                     {postImages[post.post_id].length > 1 &&(
-                      <img src={postImages[post.post_id][curPage[post.post_id]]} className='postImg'></img>
+                      <img src={postImages[post.post_id][curPage[post.post_id]]} className='postImg' onClick={() => zoomImage(post)}></img>
                     )}
                     {postImages[post.post_id].length === 1 && (
-                      <img src = {postImages[post.post_id]} className="postImg"></img>
+                      <img src = {postImages[post.post_id]} className="postImg" onClick={() => zoomImage(post)}></img>
                     )}
                     </div>
               </div>
@@ -169,7 +204,8 @@ function FeedPosts() {
                 <ThumbUpOffAltIcon className='likeButton' onClick={() => handleLike(post.post_id)} />
                 <span className="postLikeCounter">{(like[post.post_id] || 0)} людям понравилось</span>
                 <RemoveRedEyeIcon />
-                <p>{post.views}</p>
+                <p>{post.views}   </p>
+                <span className="id">id: {post.post_id}</span>
               </div>
             </div>
           </div>

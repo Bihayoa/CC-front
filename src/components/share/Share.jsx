@@ -32,7 +32,7 @@ export default function Share() {
             window.location.reload();
             return postData
         }catch(err){
-            console.error("SORRY, BUT ITS A ERROR: ", err)
+            console.error("SORRY, BUT ITS AN ERROR: ", err)
         }
     } 
 

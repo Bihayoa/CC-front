@@ -1,11 +1,11 @@
 import LoginSignup from "./components/auth/LoginSignup";
 import HomePage from "./components/Home/home";
-import PostByID from "./components/post/getPostById";
+// import PostByID from "./components/post/getPostById";
 import PostID from "./components/post/postID";
 
 import { Route, Routes } from 'react-router-dom';
 import "./globals.css"
-import FeedPosts from "./components/post/feedPosts";
+// import FeedPosts from "./components/post/feedPosts";
 
 function App() {
       return(
