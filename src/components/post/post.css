@@ -228,7 +228,7 @@
   /* On hover, add a black background color with a little bit see-through */
   .prevZoomed:hover, .nextZoomed:hover {
     background-color: rgba(0,0,0,0.8);
-  }
+      }
 
   .prevZoomed {
     left: 0;

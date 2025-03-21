@@ -10,6 +10,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { postByID, putLike } from '../../api/postAPI';
+import ImageZoom from '../imageZoom/imageZoom';
 
 const PostByID = () => {
 
@@ -19,6 +20,10 @@ const PostByID = () => {
     const [error, setError] = useState(null);
     const [curPhoto, setCurPhoto] = useState(0);
     const [like, setLike] = useState(0);
+    const [zoomPhoto, setZoomPhoto] = useState('');
+    const [isImgZoom, setIsImgZoom] = useState(false);
+
+
 
     const token = localStorage.getItem("token");
 
@@ -59,16 +64,48 @@ const PostByID = () => {
     const photosAmount = postImages.length;
 
     const changePhoto = (direction) => {
+      if(isImgZoom === false){
       if (direction === 'next') {
           setCurPhoto(curPhoto < photosAmount - 1 ? curPhoto + 1 : 0);
       } else {
           setCurPhoto(curPhoto > 0 ? curPhoto - 1 : photosAmount - 1);
+      }}else{
+        if (direction === 'next') {
+          setCurPhoto(curPhoto < photosAmount - 1 ? curPhoto + 1 : 0);
+      } else {
+          setCurPhoto(curPhoto > 0 ? curPhoto - 1 : photosAmount - 1);
       }
+      }
+
+      //костыль, не с первого раза перелистывать начинеает, хз почему
+      let n;
+      if(postImages[curPhoto] === zoomPhoto){
+        n = direction === 'next' ? ((curPhoto < photosAmount - 1 ? curPhoto + 1 : 0)) : ((curPhoto > 0 ? curPhoto - 1 : photosAmount - 1))}
+      setZoomPhoto(postImages[n])
     };
+
+    const zoomImage = () =>{
+      console.log(photosAmount)
+      if(isImgZoom === false){
+        setIsImgZoom(true);
+      } else{
+        setIsImgZoom(false);
+        // setZoomPhoto(null);
+      }
+      setZoomPhoto(postImages[curPhoto])
+  }
+
     
 
     return(
         <div className='postID'>
+          {isImgZoom && (
+                  <>
+                    <ImageZoom image_src={zoomPhoto}  />
+                    <img className="bg" onClick={()=>{setIsImgZoom(false)}}/>
+          
+                  </>
+                    )}
         <div className='postWrapper'>
           
             <div className="postTop">
@@ -91,9 +128,25 @@ const PostByID = () => {
                                 <a className='next' onClick={() => changePhoto('next')}>&rarr;</a>
                             </>
                         )}
+                  {photosAmount === 0 && (
+                    
+                    <div className="space"></div>
+                   )}
+                  {(photosAmount > 1 && isImgZoom === false) && (
+                      <>
+                          <a className='prev' onClick={() => changePhoto('prev')}>&larr;</a>
+                          <a className='next' onClick={() => changePhoto('next')}>&rarr;</a>
+                      </>
+                  )}
+              {(photosAmount > 1 && isImgZoom === true) && (
+                      <>
+                          <a className='prevZoomed' onClick={() => changePhoto('prev')}>&larr;</a>
+                          <a className='nextZoomed' onClick={() => changePhoto('next')}>&rarr;</a>
+                      </>
+                  )}
                   <div className='slide'>
-                    <img src={postImages[curPhoto]} className='postImg'></img>
-                  </div>
+                  <img src={postImages[curPhoto]} className='postImg' onClick={() => {zoomImage()}}></img>
+                      </div>
                 </div>
 
             </div>

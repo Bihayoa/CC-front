@@ -111,27 +111,46 @@ function FeedPosts() {
 
   // const PostImages = posts.map((post) => post.image_urls ? post.image_urls.map((photo) => `${backendUploadDirectoryURL}/${photo}`) : () => {});
   // const photosAmount = PostImages.map((photos) => photos.length);
+  
+  //
   const changePhoto = (direction, postId) => {
-    console.log(postImages[postId].length)
-    if (direction === 'next') {
-      setCurPage((prev) => ({...prev, [postId] : curPage[postId] < postImages[postId].length - 1 ? curPage[postId] + 1 : 0}))
+    if (isImgZoom === false) {
+      if(direction === 'next'){
+        setCurPage((prev) => ({...prev, [postId] : curPage[postId] < postImages[postId].length - 1 ? curPage[postId] + 1 : 0}))
     } else {
-      setCurPage((prev) => ({...prev, [postId] : curPage[postId] > 0 ? curPage[postId] - 1 : postImages[postId].length - 1}))
+        setCurPage((prev) => ({...prev, [postId] : curPage[postId] > 0 ? curPage[postId] - 1 : postImages[postId].length - 1}))
     }
-    if (isImgZoom){setZoomPhoto(postImages[zoomedPhotosCollection][curPage[postId]])}
+  }else {
+    if(direction === 'next'){
+      setCurPage((prev) => ({...prev, [zoomedPhotosCollection] : curPage[zoomedPhotosCollection] < postImages[zoomedPhotosCollection].length - 1 ? curPage[zoomedPhotosCollection] + 1 : 0}))
+  } else {
+      setCurPage((prev) => ({...prev, [zoomedPhotosCollection] : curPage[zoomedPhotosCollection] > 0 ? curPage[zoomedPhotosCollection] - 1 : postImages[zoomedPhotosCollection].length - 1}))
+  }
+
+  //Костыль
+  let n;
+  if(postImages[zoomedPhotosCollection][curPage[zoomedPhotosCollection]] === zoomPhoto){
+    n = direction === 'next' ? (curPage[zoomedPhotosCollection] < postImages[zoomedPhotosCollection].length - 1 ? curPage[zoomedPhotosCollection] + 1 : 0) : (curPage[zoomedPhotosCollection] > 0 ? curPage[zoomedPhotosCollection] - 1 : postImages[zoomedPhotosCollection].length - 1)
+  }
+  
+  //Устанавливаем увеличенную фотку с костылём
+  setZoomPhoto(postImages[zoomedPhotosCollection][n])
+}
+
   };
 
   //Увеличение картинок
   const zoomImage = (post) =>{
-      setZoomPhoto(postImages[post.post_id][curPage[post.post_id]])
       setZoomedPhotosCollection(post.post_id);
-    if(isImgZoom === false){
-      setIsImgZoom(true);
-    } else{
-      setIsImgZoom(false);
-      console.log("this is work")
-      // setZoomPhoto(null);
-    }
+      console.log(curPage)
+      if(isImgZoom === false){
+        setIsImgZoom(true);
+      } else{
+        setIsImgZoom(false);
+        console.log("this is work")
+        // setZoomPhoto(null);
+      }
+      setZoomPhoto(postImages[post.post_id][curPage[post.post_id]])
   }
 
 
@@ -172,7 +191,7 @@ function FeedPosts() {
                           <a className='next' onClick={() => changePhoto('next', post.post_id)}>&rarr;</a>
                       </>
                   )}
-              {(postImages[post.post_id].length > 1 && isImgZoom === true) && (
+              {(postImages[post.post_id].length > 1 && isImgZoom === true && postImages[zoomedPhotosCollection].length > 1) && (
                       <>
                           <a className='prevZoomed' onClick={() => changePhoto('prev', post.post_id)}>&larr;</a>
                           <a className='nextZoomed' onClick={() => changePhoto('next', post.post_id)}>&rarr;</a>
