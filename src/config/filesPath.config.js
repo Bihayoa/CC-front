@@ -1,3 +1,4 @@
-const backendUploadDirectoryURL = 'http://192.168.231.173:8080';
+import { ip } from "./dbCon.config";
+const backendUploadDirectoryURL = `${ip}`;
 
 export {backendUploadDirectoryURL};

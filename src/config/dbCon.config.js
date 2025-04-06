@@ -1,8 +1,16 @@
-const registerURL = 'http://192.168.231.173:8080/auth/register'
-const loginURL = 'http://192.168.231.173:8080/auth/login'
-const postsURL = 'http://192.168.231.173:8080/posts'
-const usersURL = 'http://192.168.231.173:8080/user'
-const ip = "http://192.168.231.173:8080"
+const ip = "http://192.168.0.103:8080"
+
+const registerURL = `${ip}/auth/register`
+const loginURL = `${ip}/auth/login`
+const postsURL = `${ip}/posts`
+const usersURL = `${ip}/user`
+const getMeURL = `${ip}/auth/me`;
+
+const APIUsersURL = `${ip}/api/user`
+
+const feedPostsURL = `${ip}/api/posts`
+const postsByIDURL = `${ip}/posts.by.id`
+
 const putLikeToPost = `${postsURL}/putlike`
 
-export {registerURL, loginURL, postsURL, usersURL, ip, putLikeToPost};
+export {registerURL, loginURL, APIUsersURL, postsURL, usersURL, ip, putLikeToPost, getMeURL, feedPostsURL, postsByIDURL};

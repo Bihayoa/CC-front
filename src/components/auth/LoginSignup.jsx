@@ -92,8 +92,9 @@ export const LoginSignup = () => {
           localStorage.setItem('token', resolve.token);
           localStorage.setItem('avatar_url', resolve.avatar_url)
         })
+        const token = localStorage.getItem('token');
         //Направление
-        if (localStorage.getItem('token') !== null && localStorage.getItem('token') !== 'undefined'){
+        if ( token !== 'null' && token !== 'undefined'){
           navigate('/')
         }else{
           window.alert("Неверный пароль или логин")

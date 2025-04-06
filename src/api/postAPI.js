@@ -1,5 +1,4 @@
-import { postsURL, putLikeToPost } from "../config/dbCon.config";
-
+import { feedPostsURL, postsByIDURL, postsURL, putLikeToPost } from "../config/dbCon.config";
 
 const postByID = async (id) => {
     const response = await fetch(`${postsURL}/${id}`);
@@ -24,9 +23,9 @@ const putLike = async(id, token) => {
     return likeResponse.likeCount; // Поменяйте здесь на соответствующий объект
 };
 
-const feedPosts = async(ip, PORTION_OF_ITEMS, offset) => {
+const feedPosts = async(PORTION_OF_ITEMS, offset) => {
     const res = await fetch(
-        `${ip}/api/posts/?limit=${PORTION_OF_ITEMS}&offset=${offset}`
+        `${feedPostsURL}/?limit=${PORTION_OF_ITEMS}&offset=${offset}`
       );
   
       if (!res.ok) {
@@ -49,4 +48,15 @@ const createPost = async(token, post) =>{
     const postData = await response.json();
     return postData;
 }
-export {postByID, putLike, feedPosts, createPost};
+
+const postsByID = async(offset, limit, ids) => {
+    const response = await fetch(`${postsByIDURL}/?offset=${offset}&limit=${limit}&ids=${ids}`);
+    if(!response.ok){
+        throw new Error(`Ошибка запроса: ${response.status}`)
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+export {postByID, putLike, feedPosts, createPost, postsByID};

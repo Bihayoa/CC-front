@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { ip } from "../../config/dbCon.config";
 import { backendUploadDirectoryURL } from "../../config/filesPath.config";
 import Share from "../share/Share";
 import "../feed/Feed.css"
@@ -37,10 +36,10 @@ function FeedPosts() {
   
     setIsLoading(true);
     try {
-      const data = await feedPosts(ip, PORTION_OF_ITEMS, offset);
+      const data = await feedPosts(PORTION_OF_ITEMS, offset);
       if (Array.isArray(data)) {
         setPosts((prev) => [...prev, ...data]);
-
+        console.log(data)
         data.forEach((post) => setLike((prev) => ({...prev, [post.post_id]:post.user_liked})))
         data.forEach((post) => post.image_urls ? setCurPage((prev) => ({...prev, [post.post_id]:0})) : () => {})
         data.forEach((post) => post.image_urls && post.image_urls !== "undefined" ? setPostImages((prev) => ({...prev, [post.post_id] : post.image_urls.map((photo) => `${backendUploadDirectoryURL}/${photo}`)})) : ()=>{})
@@ -142,7 +141,7 @@ function FeedPosts() {
   //Увеличение картинок
   const zoomImage = (post) =>{
       setZoomedPhotosCollection(post.post_id);
-      console.log(curPage)
+      // console.log(curPage)
       if(isImgZoom === false){
         setIsImgZoom(true);
       } else{
@@ -159,7 +158,7 @@ function FeedPosts() {
       <Share />
       {isImgZoom && (
         <>
-          <ImageZoom image_src={zoomPhoto}  />
+          <div className="zoomContainer"> <ImageZoom image_src={zoomPhoto}  /> </div>
           <img className="bg" onClick={()=>{setIsImgZoom(false)}}/>
 
         </>
@@ -198,10 +197,10 @@ function FeedPosts() {
                       </>
                   )}
                   <div className='slide'>
-                    {postImages[post.post_id].length > 1 &&(
+                    {(postImages[post.post_id].length > 1 && isImgZoom !== true) &&(
                       <img src={postImages[post.post_id][curPage[post.post_id]]} className='postImg' onClick={() => zoomImage(post)}></img>
                     )}
-                    {postImages[post.post_id].length === 1 && (
+                    {(postImages[post.post_id].length === 1 && isImgZoom !== true) && (
                       <img src = {postImages[post.post_id]} className="postImg" onClick={() => zoomImage(post)}></img>
                     )}
                     </div>
@@ -209,7 +208,7 @@ function FeedPosts() {
               </>
               )}
 
-              {postImages[post.post_id].length === 0 && (
+              {(postImages[post.post_id].length === 0 && isImgZoom !== true) && (
                 <>
                 <div className="space">
 

@@ -14,11 +14,24 @@ export const Topbar = () => {
     // const haveAUserAvatar = localStorage.getItem('avatar_url');
     // const avatar = haveAUserAvatar === null ?  'c:/Users/Forward/Desktop/final/src/components/assets/noProfileImg.png' : haveAUserAvatar
     const avatar_url = localStorage.getItem('avatar_url');
+    const token = localStorage.getItem('token');
+
+    const avatar = avatar_url !== 'undefined' && avatar_url !== 'null' ? adminAvatar : noImg;
+    
 
     const navigate = useNavigate();
+
     const navigateToHomepage = () => {
-        navigate('/')
+        navigate('/');
         window.location.reload();
+    }
+
+    const navigateToProfile = () => {
+        navigate('/me');
+    }
+
+    const navigateToAuth = () => {
+        navigate('/auth');
     }
 
     return(
@@ -35,7 +48,7 @@ export const Topbar = () => {
                 <div className="topbarRight">
                     <div className="topbarLinks">
                         <span className="topbarLink" onClick={navigateToHomepage}>Главная страница</span>
-                        <span className="topbarLink">Мои посты</span>
+                        <span className="topbarLink" onClick={navigateToProfile}>Моя страница</span>
                     </div>
                     <div className="topbarIcons">
                         {/* <div className="topbarIconItem">
@@ -51,7 +64,7 @@ export const Topbar = () => {
                             <span className="topbarIconBadge">1</span>
                         </div> */}
                     </div>
-                    <img src={avatar_url !== 'undefined' && avatar_url !== null ? adminAvatar : noImg} alt="profile Img" className="topbarImg" />
+                    <img src={token !== 'undefined' && token !== 'null' ? avatar : () => {}} alt={token !== 'undefined' && token !== 'null' ? "profile img" : "Зарегистрироваться"} className="topbarImg" onClick={token !== 'undefined' && token !== 'null' ? () => {} : navigateToAuth } />
                 </div>
         </div>
     );

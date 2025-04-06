@@ -165,11 +165,11 @@
   }
   
   /* On hover, add a black background color with a little bit see-through */
-  .prev:hover, .next:hover {
+.prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
   }
 
-  .prev {
+.prev {
     left: 0;
     align-self: flex-start;
   }
@@ -234,3 +234,9 @@
     left: 0;
     align-self: flex-start;
   }
+
+
+.zoomContainer{
+    display: flex;
+    vertical-align: middle;
+}

@@ -1,7 +1,7 @@
 .imgZoom{
         margin-top:auto;
         margin-bottom: auto;
-        max-width: 800px;
+        min-width: 600px;
         max-height:600px;
         object-fit: contain;
         z-index: 10;

@@ -29,7 +29,7 @@ const PostByID = () => {
 
 
     const likePost = async () => {
-            if (token !== null && token !== 'undefined'){
+            if (token !== 'null' && token !== 'undefined'){
           try {
             const like = putLike(id, token);
             setLike(like);

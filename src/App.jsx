@@ -5,6 +5,8 @@ import PostID from "./components/post/postID";
 
 import { Route, Routes } from 'react-router-dom';
 import "./globals.css"
+import Profile from "./components/profile/Profile";
+import UserPage from "./components/profile/UserPage";
 // import FeedPosts from "./components/post/feedPosts";
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
               <Route path='/auth' element={<LoginSignup />}/>
               <Route path='/' element={<HomePage />}/>
               <Route path="/posts/:id" element={<PostID />}/>
+              <Route path="/me" element={<Profile />} />
+              <Route path="/:login" element={<UserPage />} />
           </Routes>
     </div>
    );
