@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import "./globals.css"
 import Profile from "./components/profile/Profile";
 import UserPage from "./components/profile/UserPage";
+import ProfileSetting from "./components/settings/profileSetting";
 // import FeedPosts from "./components/post/feedPosts";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <Route path="/posts/:id" element={<PostID />}/>
               <Route path="/me" element={<Profile />} />
               <Route path="/:login" element={<UserPage />} />
+              <Route path="/me/profile-settings" element={<ProfileSetting />} />
           </Routes>
     </div>
    );

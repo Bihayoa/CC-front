@@ -8,6 +8,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import adminAvatar from "../assets/adminAvatar.jpg";
 import noImg from "../assets/noProfileImg.png"
 import { useNavigate } from 'react-router-dom';
+import { backendUploadDirectoryURL } from '../../config/filesPath.config';
 
 
 export const Topbar = () => {
@@ -16,7 +17,7 @@ export const Topbar = () => {
     const avatar_url = localStorage.getItem('avatar_url');
     const token = localStorage.getItem('token');
 
-    const avatar = avatar_url !== 'undefined' && avatar_url !== 'null' ? adminAvatar : noImg;
+    const avatar = avatar_url !== 'undefined' && avatar_url !== 'null' && avatar_url ? `${backendUploadDirectoryURL}/${avatar_url}` : noImg;
     
 
     const navigate = useNavigate();
@@ -32,6 +33,10 @@ export const Topbar = () => {
 
     const navigateToAuth = () => {
         navigate('/auth');
+    }
+
+    const navigateToProfileSettings = () => {
+        navigate('/me/profile-settings');
     }
 
     return(
@@ -64,7 +69,7 @@ export const Topbar = () => {
                             <span className="topbarIconBadge">1</span>
                         </div> */}
                     </div>
-                    <img src={token !== 'undefined' && token !== 'null' ? avatar : () => {}} alt={token !== 'undefined' && token !== 'null' ? "profile img" : "Зарегистрироваться"} className="topbarImg" onClick={token !== 'undefined' && token !== 'null' ? () => {} : navigateToAuth } />
+                    <img src={token !== 'undefined' && token !== 'null' && token ? avatar : () => {}} alt={token !== 'undefined' && token !== 'null' && token ? "profile img" : "Зарегистрироваться"} className="topbarImg" onClick={token !== 'undefined' && token !== 'null' && token ? navigateToProfileSettings : navigateToAuth } />
                 </div>
         </div>
     );

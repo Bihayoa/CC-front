@@ -1,4 +1,4 @@
 import { ip } from "./dbCon.config";
 const backendUploadDirectoryURL = `${ip}`;
-
-export {backendUploadDirectoryURL};
+const oneImageToAvatarUploadURL = `${backendUploadDirectoryURL}/upload/images`
+export {backendUploadDirectoryURL, oneImageToAvatarUploadURL};

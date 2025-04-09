@@ -12,6 +12,8 @@ import '../post/post.css';
 export default function ProfileRight(props) {
     const limit = 5;
 
+    const avatar = props.avatar !== 'null' && props.avatar !== 'undefined' && props.avatar !== null && props.avatar !== undefined ? `${backendUploadDirectoryURL}/${props.avatar}` : noProfileImg ;
+
     const [offset, setOffset] = useState(0);
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -161,7 +163,7 @@ export default function ProfileRight(props) {
           <div className='postWrapperProfile'>
             <div className="postTop">
               <div className="postTopLeft">
-                <img src={post.avatar_url || noProfileImg} alt='' className='postProfileImg' />
+                <img src={ avatar } alt='' className='postProfileImg' />
                 <span className='postUsername'>{props.login}</span>
                 <span className='postDate'>{post.createdTime}</span>
               </div>

@@ -9,9 +9,11 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { feedPosts, putLike } from "../../api/postAPI";
 import ImageZoom from "../imageZoom/imageZoom";
+import { useNavigate } from "react-router-dom";
 
 const PORTION_OF_ITEMS = 4;
 // const sortMethod = "created";
+
 
 function FeedPosts() {
 
@@ -27,10 +29,13 @@ function FeedPosts() {
   const [isImgZoom, setIsImgZoom] = useState(false);
   const [zoomPhoto, setZoomPhoto] = useState('');
   const [zoomedPhotosCollection, setZoomedPhotosCollection] = useState('');
+  const navigate = useNavigate();
 
   // const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
+
+
     // Предотвратить повторные запросы, если уже идет загрузка
     if (isLoading) return;
   
@@ -152,6 +157,33 @@ function FeedPosts() {
       setZoomPhoto(postImages[post.post_id][curPage[post.post_id]])
   }
 
+  const navigateToUserPage = (login) => {
+    navigate(`/${login}`);
+  }
+
+  const calculateTime = (createdTime) => {
+    const currentTime = Date.now();
+    let timeAfterCreate = (currentTime - createdTime) / 1000; // время в секундах
+
+    if (timeAfterCreate < 60) {
+        return "Создано меньше минуты назад";
+    } else if (timeAfterCreate < 3600) { // 60 * 60
+        const minutes = Math.round(timeAfterCreate / 60);
+        return `Создано ${minutes} минут${minutes === 1 ? 'у' : ''} назад`;
+    } else if (timeAfterCreate < 86400) { // 60 * 60 * 24
+        const hours = Math.round(timeAfterCreate / 3600);
+        return `Создано ${hours} часов назад`;
+    } else if (timeAfterCreate < 31536000) { // 60 * 60 * 24 * 365
+        const days = Math.round(timeAfterCreate / 86400);
+        return `Создано ${days} дней назад`;
+    } else {
+        const years = Math.round(timeAfterCreate / 31536000);
+        return `Создано ${years} лет назад`;
+    }
+}
+
+  
+  let avatar;
 
   return (
     <div className="feed">
@@ -165,14 +197,16 @@ function FeedPosts() {
           )}
 
       {posts.map((post) => (
-        
         <div key={post.post_id}>
+          <div className="avatars">
+            {avatar = post.avatar_url !== 'undefined' && post.avatar_url !== 'null' && post.avatar_url ? `${backendUploadDirectoryURL}/${post.avatar_url}` : noProfileImg}
+          </div>
           <div className='postWrapper'>
             <div className="postTop">
-              <div className="postTopLeft">
-                <img src={post.avatar_url || noProfileImg} alt='' className='postProfileImg' />
+              <div className="postTopLeft" onClick={() => {navigateToUserPage(post.login)}}>
+                <img src={avatar} alt='' className='postProfileImg' />
                 <span className='postUsername'>{post.login}</span>
-                <span className='postDate'>{post.createdTime}</span>
+                <span className='postDate'>{calculateTime(Date.parse(post.createdTime))}</span>
               </div>
               <div className="postTopRight">
                 <MoreVertIcon className='options' />

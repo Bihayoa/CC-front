@@ -18,7 +18,7 @@ export default function UserPage() {
           try{
             const data = await getUserByLogin(login);
             setProfile(data);
-            // console.log(data);
+            console.log(data);
           }catch (err) {
             setError(err.message);
           } finally {
@@ -41,8 +41,8 @@ export default function UserPage() {
             <div className="profile">
                 <Sidebar className="sidebar"/>
                 <div className="profileContainer">
-                  <ProfileLeft avatar={profile.avatar} profileData = {profile} className="profileLeft"/>
-                  <ProfileRight ids={profile.posts} login={profile.login} className="profileRight" />
+                  <ProfileLeft avatar={profile.avatar_url} profileData = {profile} className="profileLeft"/>
+                  <ProfileRight ids={profile.posts} login={profile.login} avatar = {profile.avatar_url} className="profileRight" />
                 </div>
             </div>
         </>

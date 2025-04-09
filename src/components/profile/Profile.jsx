@@ -46,7 +46,7 @@ export default function Profile() {
             <Sidebar className="sidebar"/>
             <div className="profileContainer">
               <ProfileLeft avatar={avatar} profileData = {profile} className="profileLeft"/>
-              <ProfileRight ids={profile.posts} login={profile.login} className="profileRight" />
+              <ProfileRight ids={profile.posts} login={profile.login} avatar={avatar} className="profileRight" />
             </div>
         </div>
     </>

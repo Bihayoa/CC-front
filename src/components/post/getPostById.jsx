@@ -95,7 +95,24 @@ const PostByID = () => {
       setZoomPhoto(postImages[curPhoto])
   }
 
-    
+    const calculateTime = (createdTime) => {
+      const time = Date.now()
+      let timeAfterCreate = time - createdTime;
+      timeAfterCreate = timeAfterCreate / 1000 
+      if(timeAfterCreate < 60){
+        return `Создано меньше минуты назад`
+      }else if(timeAfterCreate / 60 < 60){
+        timeAfterCreate = timeAfterCreate / 60
+        return `Создано ${Math.round(timeAfterCreate)} минут назад`
+      }else if(timeAfterCreate / 60 < 24){
+        timeAfterCreate = timeAfterCreate / 60
+        return `Создано ${Math.round(timeAfterCreate)} часов назад`
+      }else if(timeAfterCreate / 24 < 365){
+        return `Создано ${Math.round(timeAfterCreate)} дней назад`
+      }else{
+        return `Создано ${Math.round(timeAfterCreate) / 365} дней назад`
+      }
+    }
 
     return(
         <div className='postID'>
@@ -110,9 +127,9 @@ const PostByID = () => {
           
             <div className="postTop">
               <div className="postTopLeft">
-                <img src={post.avatar_url ? post.avatar_url : noProfileImg} alt='' className='postProfileImg'/>
+                <img src={post.avatar_url ? `${backendUploadDirectoryURL}/${post.avatar_url}` : noProfileImg} alt='' className='postProfileImg'/>
                 <span className='postUsername'>{post.login}</span>
-                <span className='postDate'>{post.createdTime}</span>
+                <span className='postDate'>{calculateTime(Date.parse(post.createdTime))}</span>
               </div>
               <div className="postTopRight">
                 <MoreVertIcon className='options'/>
