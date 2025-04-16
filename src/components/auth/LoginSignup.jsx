@@ -11,13 +11,13 @@ import Fon from '../background/bgFon.jsx'
 import {useNavigate} from "react-router-dom"
 import Topbar from '../topbar/Topbar.jsx'
 import { login, register } from '../../api/userAPI.js'
-
+import { useEffect } from 'react'
 let URL;
 
 export const LoginSignup = () => {
 
   const navigate = useNavigate();
-  
+  const [token, setToken] = useState();
   //LOGIN/REGISTER CHANGING
   const [action, setAction] = useState("Login");
 
@@ -91,10 +91,11 @@ export const LoginSignup = () => {
         userData.then((resolve) => {
           localStorage.setItem('token', resolve.token);
           localStorage.setItem('avatar_url', resolve.avatar_url)
+          setToken(resolve.token);
         })
-        const token = localStorage.getItem('token');
+
         //Направление
-        if ( token !== 'null' && token !== 'undefined'){
+        if ( token !== 'null' && token !== 'undefined' && token){
           navigate('/')
         }else{
           window.alert("Неверный пароль или логин")
@@ -106,7 +107,11 @@ export const LoginSignup = () => {
     }
   }    
 }
-
+  useEffect(() =>{
+    if(token !== 'undefined' && token !== 'null' && token){
+      navigate('/');
+    }
+  },[token])
   return (
       <>
       <Topbar />

@@ -9,6 +9,8 @@
 }
 
 .sidebarWrapper{
+    display: flex;
+    position: sticky;
     padding: 20px;
 }
 

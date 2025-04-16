@@ -1,4 +1,4 @@
-const ip = "http://192.168.76.173:8080"
+const ip = "http://192.168.101.173:8000"
 
 const registerURL = `${ip}/auth/register`
 const loginURL = `${ip}/auth/login`

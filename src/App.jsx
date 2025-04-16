@@ -8,6 +8,10 @@ import "./globals.css"
 import Profile from "./components/profile/Profile";
 import UserPage from "./components/profile/UserPage";
 import ProfileSetting from "./components/settings/profileSetting";
+import Chat from "./components/chat/Chat"
+import Messenger from "./components/messenger/Messenger";
+
+
 // import FeedPosts from "./components/post/feedPosts";
 
 function App() {
@@ -20,6 +24,8 @@ function App() {
               <Route path="/me" element={<Profile />} />
               <Route path="/:login" element={<UserPage />} />
               <Route path="/me/profile-settings" element={<ProfileSetting />} />
+              <Route path="/chat" element={<Chat />} />
+              <Route path="/messenger" element={<Messenger />} />
           </Routes>
     </div>
    );

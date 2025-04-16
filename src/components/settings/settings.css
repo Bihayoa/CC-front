@@ -1,0 +1,90 @@
+.settingsWrapper{
+    display: flex;
+    align-items: center;
+}
+
+.logout{
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+    position: absolute;
+    color:hsl(0, 100%, 50%);
+    font-weight: 700;
+    background: hsl(0, 0%, 72%);
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.logout:hover{
+    background: hsl(0, 0%, 52%);
+    color: hsl(0, 100%, 30%)
+}
+
+.exitWindow{
+   left: 50%;
+   top: 50%;
+   z-index: 10;
+   position: absolute;
+   margin: -125px -280px;
+   height: 200px;
+   width: 600px;
+   background-color: rgb(168, 253, 155);
+   padding-left: 50px;
+   border-radius: 20px;
+   border: 2px solid black;
+}
+
+.bgF{
+    width: 100%;
+    height: 100%;
+    background: #b9b9b980;
+    z-index: 9;
+    position: fixed;
+}
+
+.exitWinBtns{
+    display: flex;
+    align-items: center;
+    
+}
+
+.NoBtn, .YesBtn{
+    margin-right: auto;
+    margin-left: 50px;
+    margin-top: 20px;
+    height: 65px;
+    width: 125px;
+    border-radius: 20px;
+
+}
+
+
+.NoBtn{
+    color: rgb(23, 44, 23);
+    background: hsl(117, 92%, 31%);
+    font-size:large;
+    font-weight: 600;
+}
+
+.NoBtn:hover{
+    background-color: hsl(117, 92%, 51%);
+}
+
+.YesBtn{
+    color: hsl(0, 47%, 22%);
+    background-color: hsl(0, 100%, 59%);
+    font-size: large;
+    font-weight: 600;
+}
+
+.YesBtn:hover{
+    background: hsl(0, 100%, 79%);
+}
+
+.registerBtn{
+    cursor: pointer;
+}

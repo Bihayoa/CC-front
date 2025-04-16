@@ -161,6 +161,8 @@ function FeedPosts() {
     navigate(`/${login}`);
   }
 
+  //POST CREATED TIME -----------------------
+  
   const calculateTime = (createdTime) => {
     const currentTime = Date.now();
     let timeAfterCreate = (currentTime - createdTime) / 1000; // время в секундах
@@ -182,6 +184,7 @@ function FeedPosts() {
     }
 }
 
+//--------------------------------------------
   
   let avatar;
 
@@ -257,7 +260,7 @@ function FeedPosts() {
                 <span className="postLikeCounter">{(like[post.post_id] || 0)} людям понравилось</span>
                 <RemoveRedEyeIcon />
                 <p>{post.views}   </p>
-                <span className="id">id: {post.post_id}</span>
+                <span className="post_id">id: {post.post_id}</span>
               </div>
             </div>
           </div>

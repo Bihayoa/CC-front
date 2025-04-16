@@ -247,3 +247,7 @@
     display: flex;
     vertical-align: middle;
 }
+
+.post_id{
+    margin-left: 20px;
+}

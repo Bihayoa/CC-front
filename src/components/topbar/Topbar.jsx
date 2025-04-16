@@ -28,7 +28,11 @@ export const Topbar = () => {
     }
 
     const navigateToProfile = () => {
-        navigate('/me');
+        if(token !== 'undefined' && token !== 'undefined' && token){
+            navigate('/me');
+        }else{
+            window.alert('Необходимо авторизоваться')
+        }
     }
 
     const navigateToAuth = () => {
@@ -36,7 +40,11 @@ export const Topbar = () => {
     }
 
     const navigateToProfileSettings = () => {
+    if(token !== 'undefined' && token !== 'undefined' && token){
         navigate('/me/profile-settings');
+    }else{
+                window.alert('Необходимо авторизоваться')
+        }
     }
 
     return(
@@ -69,7 +77,10 @@ export const Topbar = () => {
                             <span className="topbarIconBadge">1</span>
                         </div> */}
                     </div>
-                    <img src={token !== 'undefined' && token !== 'null' && token ? avatar : () => {}} alt={token !== 'undefined' && token !== 'null' && token ? "profile img" : "Зарегистрироваться"} className="topbarImg" onClick={token !== 'undefined' && token !== 'null' && token ? navigateToProfileSettings : navigateToAuth } />
+                    {(token !== 'undefined' && token !== 'null' && token) ? (
+                        <img src={avatar} alt={"profile img"} className="topbarImg" onClick={ navigateToProfileSettings } />
+                    ) : <div className='registerBtn' onClick={navigateToAuth}> Зарегистрироваться </div>
+                }
                 </div>
         </div>
     );
