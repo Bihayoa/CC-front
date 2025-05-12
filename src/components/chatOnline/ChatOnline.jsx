@@ -7,7 +7,7 @@ function ChatOnline() {
     <div className='chatOnline'>
         <div className='chatOnlineFriend'>
             <div className="chatOnlineImgContainer">
-                <img src="http://192.168.0.102:8000/uploads/887e8850-2673-4cc1-9981-2080cfe5aec51742302510396.jpg" alt="" className='chatOnlineImg' />
+                <img src="" alt="" className='chatOnlineImg' />
                 <div className="chatOnlineBadge"></div>
             </div>
             <span className="chatOnlineName">DANIL</span>
