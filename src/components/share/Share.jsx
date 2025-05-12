@@ -9,7 +9,7 @@ import uploadIcon from '../assets/Coding-Apps-Website-Web-Form-Image-Attachment-
 import noProfileImg from '../assets/noProfileImg.png';
 
 //IMPORT URL
-import { postsURL } from '../../config/dbCon.config';
+import { postsURL } from '../../config/postsURL.config';
 import { createPost } from '../../api/postAPI';
 import { backendUploadDirectoryURL } from '../../config/filesPath.config';
 

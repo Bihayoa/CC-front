@@ -6,7 +6,7 @@ import mail_icon from '../assets/mail_line.png'
 import user_icon from '../assets/user_3_line.png'
 import login_icon from '../assets/flower_3_line.png'
 
-import {registerURL, loginURL} from "../../config/dbCon.config.js"
+import {registerURL, loginURL} from "../../config/postsURL.config.js"
 import Fon from '../background/bgFon.jsx'
 import {useNavigate} from "react-router-dom"
 import Topbar from '../topbar/Topbar.jsx'

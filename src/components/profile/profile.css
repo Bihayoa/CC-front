@@ -64,6 +64,8 @@
     margin-bottom: auto;
     height: 100%;
     margin-left: 25px;
+    width: 1000px;
+    font-size: 24px;
 }
 
 .logAndDesc{
@@ -76,6 +78,7 @@
     height: 250px;
     width: 250px;
     border-radius: 50%;
+    object-fit: cover;
     /* background-color: gray; */
     cursor:pointer;
     align-self: auto;

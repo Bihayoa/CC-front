@@ -1,6 +1,7 @@
 .settingsWrapper{
     display: flex;
-    align-items: center;
+    align-items:baseline;
+    height: 100%;
 }
 
 .logout{
@@ -87,4 +88,23 @@
 
 .registerBtn{
     cursor: pointer;
+}
+
+.descriptionSet{
+    margin-left: 30px;
+    width: 400px;
+
+}
+
+.descWrapper{
+    display: flex;
+    align-content: center;
+}
+.descInput{
+    width: 60%;
+    background: transparent;
+    font-size:16px;
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
 }

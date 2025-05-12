@@ -1,4 +1,4 @@
-import { feedPostsURL, postsByIDURL, postsURL, putLikeToPost } from "../config/dbCon.config";
+import { feedPostsURL, postsByIDURL, postsURL, putLikeToPost } from "../config/postsURL.config";
 
 const postByID = async (id) => {
     const response = await fetch(`${postsURL}/${id}`);

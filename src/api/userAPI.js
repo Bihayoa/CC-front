@@ -1,4 +1,4 @@
-import { getMeURL, APIUsersURL } from "../config/dbCon.config";
+import { getMeURL, APIUsersURL } from "../config/postsURL.config";
 
 const register = async(URL, user) => {
         const response = await fetch(URL, {

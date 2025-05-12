@@ -1,6 +1,6 @@
 import React, {isValidElement, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import { postsURL, usersURL } from '../../config/dbCon.config';
+import { postsURL, usersURL } from '../../config/postsURL.config';
 import noProfileImg from '../assets/noProfileImg.png';
 import "./post.css"
 
@@ -96,23 +96,25 @@ const PostByID = () => {
   }
 
     const calculateTime = (createdTime) => {
-      const time = Date.now()
-      let timeAfterCreate = time - createdTime;
-      timeAfterCreate = timeAfterCreate / 1000 
-      if(timeAfterCreate < 60){
-        return `Создано меньше минуты назад`
-      }else if(timeAfterCreate / 60 < 60){
-        timeAfterCreate = timeAfterCreate / 60
-        return `Создано ${Math.round(timeAfterCreate)} минут назад`
-      }else if(timeAfterCreate / 60 < 24){
-        timeAfterCreate = timeAfterCreate / 60
-        return `Создано ${Math.round(timeAfterCreate)} часов назад`
-      }else if(timeAfterCreate / 24 < 365){
-        return `Создано ${Math.round(timeAfterCreate)} дней назад`
-      }else{
-        return `Создано ${Math.round(timeAfterCreate) / 365} дней назад`
-      }
+    const currentTime = Date.now();
+    let timeAfterCreate = (currentTime - createdTime) / 1000; // время в секундах
+
+    if (timeAfterCreate < 60) {
+        return "Создано меньше минуты назад";
+    } else if (timeAfterCreate < 3600) { // 60 * 60
+        const minutes = Math.round(timeAfterCreate / 60);
+        return `Создано ${minutes} минут${minutes === 1 ? 'у' : ''} назад`;
+    } else if (timeAfterCreate < 86400) { // 60 * 60 * 24
+        const hours = Math.round(timeAfterCreate / 3600);
+        return `Создано ${hours} часов назад`;
+    } else if (timeAfterCreate < 31536000) { // 60 * 60 * 24 * 365
+        const days = Math.round(timeAfterCreate / 86400);
+        return `Создано ${days} дней назад`;
+    } else {
+        const years = Math.round(timeAfterCreate / 31536000);
+        return `Создано ${years} лет назад`;
     }
+}
 
     return(
         <div className='postID'>

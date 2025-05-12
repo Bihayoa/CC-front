@@ -1,4 +1,4 @@
-import {oneImageToAvatarUploadURL } from "../config/filesPath.config"
+import {oneImageToAvatarUploadURL, changeDescriptionURL } from "../config/filesPath.config"
 
 const setAvatar = async(token, formData ) => {
     try{
@@ -16,8 +16,22 @@ const setAvatar = async(token, formData ) => {
         const data = await res.json();
         return data
     }catch(err){
-
+        console.log("ERROR AT SET AVATAR: ", err)
     }
 }
 
-export {setAvatar}
+const setDescription = async(token, description) => {
+    const response = await fetch(changeDescriptionURL, {
+        method: 'PATCH',
+        body: JSON.stringify(description),
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const data = await response.json();
+    return data;
+}
+
+export {setAvatar, setDescription}
